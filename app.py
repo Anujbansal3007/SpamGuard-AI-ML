@@ -13,7 +13,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent
-DATA_PATH = ROOT / "data" / "sms_spam.csv"
+DATA_PATH = ROOT /  "sms_spam.csv"
 
 @st.cache_data
 def load_data():

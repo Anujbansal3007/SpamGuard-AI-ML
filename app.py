@@ -9,8 +9,22 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
-ROOT = Path(__file__).parent
+from pathlib import Path
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parent
 DATA_PATH = ROOT / "data" / "sms_spam.csv"
+
+@st.cache_data
+def load_data():
+    if not DATA_PATH.exists():
+        raise FileNotFoundError(
+            f"Dataset not found at {DATA_PATH}. "
+            "Upload data/sms_spam.csv to your GitHub repository."
+        )
+
+    df = pd.read_csv(DATA_PATH)
+    return df.dropna(subset=["text", "label"])
 
 st.set_page_config(page_title="SpamGuard AI", page_icon="🛡️", layout="wide", initial_sidebar_state="expanded")
 
